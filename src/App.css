@@ -1,0 +1,140 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+input {
+  appearance: none;
+  border: none;
+  background-color: #6666aa;
+  padding:6px;
+  border-radius: 20px;
+}
+input:focus {
+  outline: 2px solid #555599;
+}
+
+.main {
+  width: 100%
+}
+
+.titleBar {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.switcher {
+  padding: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items:  center;
+  background-color: #000000;
+  border-radius: 40px;
+  border: 2px solid #ffC500;
+}
+
+.switcher .switcher-option {
+  padding: 6px;
+  border-radius: 40px;
+  transition-duration: 0.5s;
+}
+
+.switcher .switcher-option.active {
+  color: #000000;
+  background-color: #ffC500;
+}
+
+
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  min-width: 200px;
+  height: 50px;
+  margin: 5px;
+}
+
+.yellow{
+  background-color: #ffC500;
+  color: #000000;
+}
+
+.grey {
+  background-color: #666666;
+}
+
+.blue {
+  background-color: #3333aa;
+}
+
+.topBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 75px;
+}
+
+.hx-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.hx-container input {
+  width: 30px;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.low-container {
+  width: 20%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.uni-container {
+  width: 40%;
+  height: 300px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 40px;
+  background-color: #000000;
+}
+
+.misc-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.misc-container .button {
+  flex: 0 0 calc(30% - 10px);
+}
+
+
