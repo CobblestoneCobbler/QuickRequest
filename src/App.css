@@ -90,10 +90,37 @@ input:focus {
   display: flex;
   flex-direction: row;
   gap: 10px;
+  align-items: center;
 }
 
-.hx-container input {
+.hx-input {
+  display: flex;
+  align-items: center;
+  background: #444477;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.hx-prefix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  border-radius: 4px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.hx-input input {
   width: 30px;
+  border: none;
+  background: none;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.hx-input input:focus {
+  outline: none;
 }
 
 .button-container {

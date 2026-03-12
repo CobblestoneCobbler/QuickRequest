@@ -13,7 +13,7 @@ export function App() {
   });
   
 
-  const maintenanceEmail = localStorage.getItem("mEmail");
+  const maintenanceEmail = localStorage.getItem("mEmail") || "InputEmail";
   const subjectLine = "Maintenance Request";
   const urgentSubject = "Line Down Maintenance Request";
 
@@ -23,8 +23,10 @@ export function App() {
   ]
 
   function sendRequest(output){
-        output = `In the ${area === "West" || area === "East" ? "5000":"5008"} Womack Rd location, on the ${area} Line, ${output}`;
-        window.location.href = `mailto:${maintenanceEmail}?subject=${subjectLine}&body=${output}`;
+        output =`In the ${area === "West" || area === "East" ? "5000":"5008"} Womack Rd location, on the ${area} Line, ${output}`;
+        const encodedSubject = encodeURIComponent(subjectLine);
+        const encodedBody = encodeURIComponent(output);
+        window.location.href = `mailto:${maintenanceEmail}?subject=${encodedSubject}&body=${encodedBody}`;
         /*
         handleClick() {
           const params = new URLSearchParams({ subject, body }).toString();

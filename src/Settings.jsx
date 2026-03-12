@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export function Settings({setPage}){
     const [activeElement, setActiveElement] = useState(0);
-    var mEmail = localStorage.getItem("mEmail");
+    const [mEmail, setMEmail] = useState(()=> localStorage.getItem("mEmail") || "");
+
+    function saveEmail(newEmail){
+        const trimmed = newEmail.trim();
+        setMEmail(trimmed);
+        localStorage.setItem("mEmail", trimmed);
+        setActiveElement(0);
+    }
 
     return(
         <div className="settings">
             <div className="display">
                 <div className="email" onClick={()=>(setActiveElement(1))}>
                     <div>Maintenance Email :</div> 
-                    {activeElement===1? <InputLine value={mEmail? mEmail :""} setValue={(e)=>{localStorage.setItem("mEmail", e);setActiveElement(0)}}/>: mEmail}
+                    {activeElement===1? <InputLine value={mEmail} onSave={saveEmail}/> : (mEmail || <span className="placeholder">Enter an Email</span>)}
                 </div>
             </div>
         </div>
@@ -18,14 +25,32 @@ export function Settings({setPage}){
 }
 
 
-function InputLine({value,setValue}){
+function InputLine({value,onSave}){
     const [newValue, setNewValue] = useState(value);
+    const inputRef = useRef(null);
+
+    useEffect(()=>{
+        inputRef.current?.focus();
+    },[]);
+    
+    useEffect(()=>{
+        setNewValue(value);
+    },[value]);
 
     return(
         <>
-            <input type="text" value={newValue} autoFocus onChange={(e) => {setNewValue(e.target.value)}} onKeyDown={(e)=>{
-                e.key === "Enter" && setValue(newValue);
-            }}/>
+            <input
+                ref={inputRef}
+                type="text"
+                value={newValue}
+                onChange={(e) => {setNewValue(e.target.value)}}
+                onBlur={() => onSave(newValue)}
+                onKeyDown={(e) => {
+                    if(e.key === "Enter"){
+                        onSave(newValue);
+                    }
+                }}
+            />
         </>
     )
 }
