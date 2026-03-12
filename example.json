@@ -1,0 +1,35 @@
+//Master Record
+{
+  "projects": [
+    {
+      "name": "Project 1",
+      "path": "project1.json",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Project 2",
+      "path": "project2.json",
+      "image": "https://via.placeholder.com/150"
+    }
+  ]
+}
+
+
+
+//Project 1
+{
+  "entries": [
+    {
+      "title": "Entry 1",
+      "description": "Description for Entry 1",
+      "date": 20240101,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "title": "Entry 2",
+      "description": "Description for Entry 2",
+      "date": 20240201,
+      "image": "https://via.placeholder.com/150"
+    }
+  ]
+}   
