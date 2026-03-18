@@ -1,0 +1,39 @@
+{
+"entries": [
+    {
+        "title": "Initial",
+        "description": "For part of our quarterly goal share, we would make Peer to Peer recognition cards. To enter in more cards with less effort, I created a react site that would store different safe actions, and different operators.",
+        "date": 20251125
+    },
+    {
+        "title": "Operator Grid",
+        "description": "Since each operator can have multiple cards made for them, I created a grid of operators, and prompts with red x's and green check marks to indicate which cards have been made for each operator.",
+        "date": 20260311
+    },
+    {
+        "title": "Card Creation",
+        "description": "Since these cards are entered into a microsoft form, I experimented with ways to enter this data. My first hope was being able to pass url parameters to the form, but this was not possible without Authorization by the creator of the form. Instead I used a browser extension, Tampermonkey, to inject Javascript into the form after it's initial code has loaded. This took much trial and error, but finally I was able to allow microsoft to generate a key in localStorage, grab onto that key, and override it's value with data from my site. This effectively worked to evade Cross-Origin Policies.",
+        "date": 20260312
+    },
+    {
+        "title": "Data Package",
+        "description": "With tampermonkey able to inject my data, I needed to create the data to pass to it. For now I've put a submit button on the bottom that then generates an array of Javascript objects as the exact value to be injected into the form. For now this is bigger than needed, but it reduces overhead of decoding the question ids and answer locations.",
+        "date": 20260313
+    },
+    {
+        "title": "Prompt Selection",
+        "description": "Initially I had the site give you the 5 oldest used prompts to try and not reuse prompts as often. This made amount of cards vary greatly due to different requirements such as hoist operators, forklift drivers, ect.. So I added another drop down to select which prompts to use.",
+        "date": 20260314
+    },
+    {
+        "title": "Other People",
+        "description" : "To allow other people to use this, I added a name input, and manager name input to the top of the grid. To avoid missing data, these fields are required, and will send an alert if you try to build the data package before entering them.",
+        "date": 20260315
+    },
+    {
+        "title": "Data Cleaning",
+        "description": "As with all work places, people come and go. I had not created a way to remove old operators other than purging local storage. With the ability to delete operators, I added a viewing tab. This shows all operator and prompts. The prompts also shows their data such as entry counts, average cards per use, and times used.",
+        "date": 20260318
+    }
+]
+}

@@ -1,0 +1,24 @@
+{
+    "projects": [
+    {
+        "name": "Peer to Peer",
+        "path": "P2p/p2p.json",
+        "image": "https://via.placeholder.com/150"
+    },
+    {
+        "name": "Quick Request",
+        "path": "QuickRequest/quickRequest.json",
+        "image": "https://via.placeholder.com/150"
+    },
+    {
+        "name":"Main Hub",
+        "path":"MainHub/mainHub.json",
+        "image":"https://via.placeholder.com/150"
+    },
+    {
+        "name":"Robo Hand",
+        "path":"RoboHand/roboHand.json",
+        "image":"https://via.placeholder.com/150"
+    }
+    ]
+}

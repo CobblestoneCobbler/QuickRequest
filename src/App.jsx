@@ -10,7 +10,6 @@ function App() {
   const [masterRecord, setMasterRecord] = useState({projects:[]});
   
   const fetchMasterRecord = async ()=>{
-
     try {
       const res = await fetch("/records/masterRecord.json");
       if (!res.ok) {
@@ -62,9 +61,9 @@ function App() {
           })}
         </div>
         <div className="record">
-          <Display sort={sort} record={record.filter((n, i)=>{
+          {record.length > 0 && <Display sort={sort} record={record.filter((n, i)=>{
             return(active === -1 || active === i);
-          })} />
+          })} />}
         </div>
       </div>
     </>
@@ -101,8 +100,8 @@ function Entry({entry}){
   return(
     <div className="entry">
       <div className="img-wrapper">
-        <img src={entry.image} alt={entry.title} />
-        <div className="fade"></div>
+        {entry.image? <img src={entry.image} alt={entry.title} /> : <div className="placeholder"></div>}
+        <div className="fade">{/*TODO Add alteration to the fade, and buffer and fallback color */}</div>
         <div className="entry-meat">
           <h2>{entry.title}</h2>
           <p>{entry.description}</p>

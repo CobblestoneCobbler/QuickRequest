@@ -1,0 +1,14 @@
+{
+"entries": [
+    {
+        "title": "Initial",
+        "description": "Writing maintenance emails at work requires repetitive information. By using the mailto: function, the work can be reduced from 5 minutes per entry to under a minute.",
+        "date": 20260305
+    },
+    {
+        "title": "Settings",
+        "description": "To prevent the code storing the email for maintenance, a setting menu was added to store it in localStorage. To do this I wanted a toggle on click effect that would switch from just displaying, to editing the value.",
+        "date": 20260311
+    }
+]
+}
