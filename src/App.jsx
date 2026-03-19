@@ -89,19 +89,19 @@ function Display({record,sort}){
           default: return 0;
         }
       }).map((n, i)=>{
-        return <Entry key={`E${i}`} entry={n}/>
+        return <Entry key={`E${i}`} i={i} entry={n}/>
       })}
     </div>
   )
 }
 
-function Entry({entry}){
+function Entry({entry, i}){
 
   return(
-    <div className="entry">
+    <div className={`entry ${i%2 ===1? "left" : "right"}`}>
       <div className="img-wrapper">
         {entry.image? <img src={entry.image} alt={entry.title} /> : <div className="placeholder"></div>}
-        <div className="fade">{/*TODO Add alteration to the fade, and buffer and fallback color */}</div>
+        <div className="fade">{/* and buffer and fallback color */}</div>
         <div className="entry-meat">
           <h2>{entry.title}</h2>
           <p>{entry.description}</p>

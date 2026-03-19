@@ -4,6 +4,11 @@
         "title": "Initial",
         "description": "Due to not wanting to pay for multiple domains, I created a central landing page that can easily navigate to all of my projects.",
         "date": 20260305
+    },
+    {
+        "title": "Presentation",
+        "description": "Having an end product doesn't show much of the problem solving behind creating my different projects. I wanted to make a way to go more in depth on this. Since this would be ideally updated weekly or daily, I wanted to make the data all separate the hosted site. To accomplish this, I decided to store different projects' histories in json files to be retrieved and parsed by the client side.",
+        "date": 20260315
     }
 ]
 }

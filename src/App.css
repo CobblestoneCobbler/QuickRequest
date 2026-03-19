@@ -5,4 +5,44 @@
   text-align: center;
 }
 
+:root{
+    --bg: #efefef;
+    --color: black;
+    --primary-bg: rgb(169, 169, 169);
+    --primary-bg-rgb: 169,169,169;
+    --fallback-bg:#3275c7;
+}
 
+[data-theme = "dark"]{
+    --bg: #363636;
+    --color: #b2b2b2;
+    --primary-bg: rgb(70, 70, 70);
+    --primary-bg-rgb: 70,70,70;
+    --fallback-bg:#0d3060;
+}
+
+
+.entry {
+  display: flex;
+  flex-direction: row;
+}
+.entry.left {
+  flex-direction: row-reverse;
+}
+.img-wrapper{
+  width: 500px;
+}
+
+.img-wrapper img {
+
+}
+
+.placeholder {
+
+}
+.fade{
+
+}
+.entry.left .img-wrapper .fade{
+
+}
