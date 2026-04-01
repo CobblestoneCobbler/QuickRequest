@@ -11,7 +11,7 @@ function App() {
   
   const fetchMasterRecord = async ()=>{
     try {
-      const res = await fetch("/records/masterRecord.json");
+      const res = await fetch("./projects/masterRecord.json");
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
@@ -27,7 +27,7 @@ function App() {
 
     try {
       //TODO add a mid step to check responses as a find() then step forward
-      const res = await Promise.all(masterRecord.projects.map(p=>fetch("/records/"+p.path)));
+      const res = await Promise.all(masterRecord.projects.map(p=>fetch("./projects/"+p.path)));
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
