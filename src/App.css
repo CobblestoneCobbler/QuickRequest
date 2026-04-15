@@ -1,36 +1,54 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  margin: auto;
   padding: 2rem;
   text-align: center;
 }
 
+
+
 :root{
+    /* default: dark neon theme */
+    --bg: #071018; /* very dark blue/teal */
+    --color: #c8fbff; /* pale neon cyan text */
+    --primary-bg: rgb(8,20,28); /* panels */
+    --primary-bg-rgb: 8,20,28;
+    --fallback-bg: #002a3a; /* darker teal fallback */
+
+    --accent: #00f7ff; /* neon cyan */
+    --accent-rgb: 0,247,255;
+    --accent2: #9d00ff; /* neon magenta accent */
+
+    /* runtime-updated per-project accent; falls back to --accent */
+    --accent-color: var(--accent);
+}
+
+[data-theme="light"]{
+    /* preserved light theme for later */
     --bg: #efefef;
     --color: black;
     --primary-bg: rgb(169, 169, 169);
     --primary-bg-rgb: 169,169,169;
     --fallback-bg:#3275c7;
-}
 
-[data-theme = "dark"]{
-    --bg: #363636;
-    --color: #b2b2b2;
-    --primary-bg: rgb(70, 70, 70);
-    --primary-bg-rgb: 70,70,70;
-    --fallback-bg:#0d3060;
+    --accent: #00f7ff;
+    --accent-rgb: 0,247,255;
+    --accent2: #9d00ff;
+
+    --accent-color: var(--accent);
 }
 
 .project-list{
-  height: 300px;
+  height: 100px;
+  width: 90vw;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  margin-bottom: 30px;
 }
 
 .project {
-  width: 300px;
-  height: 100%;
+  width: 200px;
+  height: 90%;
   background-color: var(--primary-bg);
   display: flex;
   flex-direction: column;
@@ -38,7 +56,13 @@
   align-items: center;
 }
 
+.project:hover {
+  background-color: var(--fallback-bg);
+  cursor: pointer;
+}
+
 .display {
+  padding:  20px 10px;
   display:flex;
   flex-direction: column;
   background-color: var(--primary-bg);
@@ -47,29 +71,81 @@
 }
 
 .entry {
+  position: relative;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 .entry.left {
   flex-direction: row-reverse;
 }
 .img-wrapper{
-  width: 500px;
-  height: 300px
+  position: relative;
+  width: 40%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    /* do not force fill the box — allow images to scale down but not upscale */
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
 
 .placeholder {
   background-color: var(--fallback-bg);
 }
+
+.side-bar{
+  width: 5px;
+  background-color: var(--accent-color);
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -10px;
+}
+.entry.left .side-bar{
+  right: auto;
+  left: -10px;
+}
+
+
 .fade{
-  background: (linear-gradient(to right, transparent, var(--primary-bg) 50%));
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 20%, rgba(var(--accent-rgb),0.14) 60%);
 }
-.entry.left .img-wrapper .fade{
-  background: linear-gradient(to left, transparent, var(--primary-bg) 50%);
+.entry.left .fade{
+  background: linear-gradient(270deg, transparent 20%, rgba(var(--accent-rgb),0.14) 60%);
 }
+
+.entry-meat{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 10;
+}
+
+/* TODO 
+  Add responsiveness
+  rotate flex boxes to be up and down, image below
+  Bar Below image to cut off next to next entry color fade
+
+
+  Change background color
+*/

@@ -3,22 +3,26 @@
     {
         "name": "Peer to Peer",
         "path": "P2p/p2p.json",
-        "image": "https://via.placeholder.com/150"
+        "image": "https://via.placeholder.com/150",
+        "accent_rgb": [0, 150, 255]
     },
     {
         "name": "Quick Request",
         "path": "QuickRequest/quickRequest.json",
-        "image": "https://via.placeholder.com/150"
+        "image": "https://via.placeholder.com/150",
+        "accent_rgb": [0, 200, 150]
     },
     {
         "name":"Main Hub",
         "path":"MainHub/mainHub.json",
-        "image":"https://via.placeholder.com/150"
+        "image":"https://via.placeholder.com/150",
+        "accent_rgb": [157, 0, 255]
     },
     {
         "name":"Robo Hand",
         "path":"RoboHand/roboHand.json",
-        "image":"https://via.placeholder.com/150"
+        "image":"https://via.placeholder.com/150",
+        "accent_rgb": [255, 140, 0]
     }
     ]
 }
