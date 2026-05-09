@@ -44,28 +44,77 @@ export function Dolly({setPage,sendRequest,area}){
                     </div>
                     <Button inner="Return Home" cb = {()=>setPage(0)} color="grey"/>
                 </div>
-                <div className="button-container">
-                    <div className="low-container">
-                        <Button inner = {"Low on Nuts"} cb = {()=>sendRequest("low on dolly nuts")} color="grey"/>
-                        <Button inner = {"Low on Washers"} cb = {()=>sendRequest("low on dolly washers")} color="grey"/>
-                    </div>
-                    <div className="uni-container">
-                        <Button inner = {"Broken"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()} has a broken unicorn bolt.`): ""}} color="yellow"/>
-                        <Button inner = {"Bent"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()} has a bent unicorn bolt.`): ""}} color="yellow"/>
-                        <Button inner = {"X / No Thread"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()} has a unicorn bolt with damaged threads.`): ""}} color="yellow"/>
-                        <Button inner = {"Loose"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()} has a loose unicorn bolt.`): ""}} color="yellow"/>
-                    </div>
-                    <div className="misc-container">
-                        <Button inner = {"Stuck Front Pin"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()} has a stuck frontal locking pin.`): ""}} color="blue"/>
-                        <Button inner = {"Stuck Back Pin"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()} has a stuck rear locking pin.`): ""}} color="blue"/>
-                        <Button inner = {"Raising"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()} has issues raising`): ""}} color="blue"/>
-                        <Button inner = {"Lowering"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()} has issues lowering`): ""}} color="blue"/>
-                        <Button inner = {"Stuck Front Wheel"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()} has a stuck front wheel.`): ""}} color="blue"/>
-                        <Button inner = {"Missing Nut Holder"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()} is missing the nut and washer holder`): ""}} color="blue"/>
+
+                <div className="display-container">
+                    {area === "West" && <WestDolly/>}
+
+                    <div className="button-container">
+                        <div className="low-container">
+                            <Button inner = {"Low on Nuts"} cb = {()=>sendRequest(`West Line Dolly Nuts`,"low on dolly nuts")} color="grey"/>
+                            <Button inner = {"Low on Washers"} cb = {()=>sendRequest(`West Line Dolly Washers`,"low on dolly washers")} color="grey"/>
+                        </div>
+                        <div className="uni-container">
+                            <div>Unicorn:</div>
+                            <Button inner = {"Broken"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a broken unicorn bolt.`): ""}} color="yellow"/>
+                            <Button inner = {"Bent"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a bent unicorn bolt.`): ""}} color="yellow"/>
+                            <Button inner = {"X / No Thread"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a unicorn bolt with damaged threads.`): ""}} color="yellow"/>
+                            <Button inner = {"Loose"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a loose unicorn bolt.`): ""}} color="yellow"/>
+                        </div>
+                        <div className="lifting-container">
+                            <div>Lift:</div>
+                            <Button inner = {"Broken Air Adapter"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a broken air adapter.`): ""}} color="blue"/>
+                            <Button inner = {"Raising"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has issues raising.`): ""}} color="blue"/>
+                            <Button inner = {"Lowering"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has issues lowering.`): ""}} color="blue"/>
+                            <Button inner = {"Broken Pedal"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a broken lift pedal.`): ""}} color="blue"/>
+                        </div>
+                        <div className="wheel-container">
+                            <Button inner = {"Stuck Front Wheel"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a stuck front wheel.`): ""}} color="blue"/>
+                        </div>
+                        <div className="front-pin-container">
+                            <div>Front Pin:</div>
+                            {area === "East" && <Button inner = {"Broken Wheel Lock"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a broken front wheel lock.`): ""}} color="blue"/>}
+                            <Button inner = {"Broken Handle"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a broken front tow pin handle.`): ""}} color="blue"/>
+                            <Button inner = {"Stuck Front Pin"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a stuck front tow pin.`): ""}} color="blue"/>
+                        </div>
+                        <div className="rear-pin-container">
+                            <div>Rear Pin:</div>
+                            {area === "East" && <Button inner = {"Broken Wheel Lock"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a broken rear wheel lock.`): ""}} color="blue"/>}
+                            <Button inner = {"Broken Handle"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a rear tow pin with a broken handle.`): ""}} color="blue"/>
+                            <Button inner = {"Stuck Back Pin"} cb = {()=>{checkForValid()? sendRequest(`HX-${constructHx()}`,`HX-${constructHx()} has a stuck rear tow pin.`): ""}} color="blue"/>
+                        </div>
                     </div>
                 </div>
             </div>
         </>
+    )
+}
+
+
+function WestDolly(){
+    return(
+        <div className="west-dolly">
+            <div className="west-load-plate">
+                <div className="west-pin-plate">
+                    <div className="unicorn"></div>
+                </div>
+            </div>
+            <div className="lift">
+                <div className="lift-bar"></div>
+                <div className="lift-bar inverse"></div>
+            </div>
+            <div className="west-base">
+                <div className="wheel front"></div>
+                <div className="wheel rear"></div>
+            </div>
+            <div className="front-pin">
+                <div className="skirt"></div>
+                <div className="handle"></div>
+            </div>
+            <div className="rear-pin">
+                <div className="skirt"></div>
+                <div className="handle"></div>
+            </div>
+        </div>
     )
 }
 
