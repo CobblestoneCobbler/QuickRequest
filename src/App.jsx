@@ -96,7 +96,7 @@ function App() {
         <div className="navBar"></div>
         <div className="project-list">
           {masterRecord.projects.map((p, i)=>{
-            return( <div key={i} className={"project "+(active===i?"active":"")} onClick={()=>setActive(i)}>
+            return( <div key={i} className={"project "+(active===i?"active":"")} onClick={()=>active === i ? setActive(-1) : setActive(i)}>
               <img src={p.image} alt="" />
               <h2>{p.name}</h2>
             </div>
