@@ -17,6 +17,12 @@
         "description": "To make it easier to differentiate between projects, I added a different accent color to each project. This is stored in the master record json, and passed down to each project page to allow for handling a growing number of projects.",
         "date": 20260320,
         "image": "projects/imgFiles/Colors.png"
+    },
+    {
+        "title": "Nav back on all sites",
+        "description": "To make the project pages more user-friendly, I added a navigation bar that allows users to easily return to the main hub from any project page.",
+        "date": 20260613,
+        "image": "projects/imgFiles/Nav.png"
     }
 ]
 }

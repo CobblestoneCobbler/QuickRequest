@@ -93,7 +93,7 @@ function App() {
   return (
     <>
       <div>
-        <div className="navBar"></div>
+        <NavBar />
         <div className="project-list">
           {masterRecord.projects.map((p, i)=>{
             return( <div key={i} className={"project "+(active===i?"active":"")} onClick={()=>active === i ? setActive(-1) : setActive(i)}>
@@ -165,6 +165,16 @@ function Entry({entry, i}){
         <h2>{entry.title}</h2>
         <p>{entry.description}</p>
       </div>
+    </div>
+  )
+}
+function NavBar(){
+  return(
+    <div className="navBar">
+      <div className="home" onClick={() => window.location.href = "/"}>Home</div>
+      <div className="contact-me" onClick={() =>{
+        window.location.href = `mailto:johnathan.p.terry@outlook.com?subject=Contact%20about%20Terry%20HQ&body=I'm reaching out to you about`;
+      }}>Get in touch</div>
     </div>
   )
 }

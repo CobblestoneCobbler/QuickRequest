@@ -1,6 +1,6 @@
 #root {
   margin: auto;
-  padding: 2rem;
+  width: 100vw;
   text-align: center;
 
 }
@@ -38,6 +38,7 @@ body {
 }
 
 .project-list{
+  margin-top: 20px;
   height: 100px;
   width: 90vw;
   display: flex;
@@ -144,4 +145,23 @@ body {
   align-items: center;
   padding: 20px;
   z-index: 10;
+}
+
+.navBar{
+    position: sticky;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 40px; /* restored original height */
+    padding: 7px; /* restored original padding */
+    display: flex;
+    justify-content: space-evenly; /* restore original spacing */
+    align-items: center;
+    z-index: 40;
+    background-color: rgba(25,25,25,1);
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+}
+
+.navBar div {
+    padding: 5px 12px;
 }

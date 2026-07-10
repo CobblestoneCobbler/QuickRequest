@@ -59,6 +59,12 @@
         "description": "To make the site more visually appealing, I converted it to a neon style.",
         "date": 20260410,
         "image": "projects/imgFiles/Pretty.png"
+    },
+    {
+        "title": "Tutorial",
+        "description": "To help users understand how to use the site, I created a tutorial section.",
+        "date": 20260613,
+        "image": "projects/imgFiles/Tutorial.png"
     }
 ]
 }
