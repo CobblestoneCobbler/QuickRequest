@@ -1,27 +1,31 @@
 {
     "projects": [
     {
+        "id": "p2p",
         "name": "Peer to Peer",
         "path": "P2p/p2p.json",
-        "image": "https://via.placeholder.com/150",
+        "image": "projects/imgFiles/PeerToPeer.png",
         "accent_rgb": [0, 150, 255]
     },
     {
+        "id": "quickrequest",
         "name": "Quick Request",
         "path": "QuickRequest/quickRequest.json",
-        "image": "https://via.placeholder.com/150",
+        "image": "projects/imgFiles/QuickRequest.png",
         "accent_rgb": [0, 200, 150]
     },
     {
+        "id": "mainhub",
         "name":"Main Hub",
         "path":"MainHub/mainHub.json",
-        "image":"https://via.placeholder.com/150",
+        "image":"projects/imgFiles/MainHub.png",
         "accent_rgb": [157, 0, 255]
     },
     {
+        "id": "robohand",
         "name":"Robo Hand",
         "path":"RoboHand/roboHand.json",
-        "image":"https://via.placeholder.com/150",
+        "image":"projects/imgFiles/ProjectRecord.png",
         "accent_rgb": [255, 140, 0]
     }
     ]

@@ -4,5 +4,11 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/projectrecord/"
+  base: "/projectrecord/",
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: './tests/setup.js',
+    pool: 'vmThreads',
+  },
 })

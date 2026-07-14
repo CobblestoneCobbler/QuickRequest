@@ -1,35 +1,33 @@
-//Master Record
+// Master Record — index of all projects
 {
   "projects": [
     {
       "name": "Project 1",
-      "path": "project1.json",
-      "image": "https://via.placeholder.com/150"
-    },
-    {
-      "name": "Project 2",
-      "path": "project2.json",
-      "image": "https://via.placeholder.com/150"
+      "path": "project1/project1.json",
+      "image": "projects/imgFiles/screenshot.png",
+      "accent_rgb": [0, 150, 255]
     }
   ]
 }
 
-
-
-//Project 1
+// Project Entry Log — each project has an entries array
 {
   "entries": [
     {
-      "title": "Entry 1",
-      "description": "Description for Entry 1",
-      "date": 20240101,
-      "image": "https://via.placeholder.com/150"
-    },
-    {
-      "title": "Entry 2",
-      "description": "Description for Entry 2",
-      "date": 20240201,
-      "image": "https://via.placeholder.com/150"
+      "title": "Entry Title",
+      "description": "What was done in this entry.",
+      "date": 20260101,
+      "image": "projects/imgFiles/screenshot.png"
     }
   ]
-}   
+}
+
+// Fields
+// name        — Display name shown in project selector
+// path        — Relative path from projects/ to the project JSON
+// image       — Thumbnail image path (relative to base URL)
+// accent_rgb  — [r, g, b] array for per-project accent color
+// title       — Entry heading
+// description — Entry body text
+// date        — Numeric date as YYYYMMDD (used for sorting)
+// image       — Screenshot path relative to base URL (optional per entry)

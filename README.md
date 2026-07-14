@@ -1,16 +1,45 @@
-# React + Vite
+# ProjectRecord
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal project portfolio and progress journal built with React and Vite.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ProjectRecord displays a timeline of development entries across multiple projects. Each project has its own accent color, and entries are shown in a alternating left/right layout with screenshots.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Project selector bar with per-project accent theming
+- Chronological timeline with alternating layout
+- Dark and light theme support
+- Static JSON-based data store (no backend)
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 19
+- Vite 7
+- CSS Custom Properties for theming
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+
+## Data Structure
+
+Project data is stored as static JSON files in the `projects/` directory:
+
+- `masterRecord.JSON` — index of all projects with names, paths, thumbnails, and accent colors
+- `projects/<Name>/<name>.json` — individual project entry logs
+
+See `example.json` for the schema format.
