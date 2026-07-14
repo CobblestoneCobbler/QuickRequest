@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import NavBar from './components/NavBar'
+import Display from './components/Display'
+import CategorySidebar from './components/CategorySidebar'
+import EntryForm from './components/EntryForm'
 
 function App() {
-  //-1 is all, -2 is none? else index
-  const [active, setActive] = useState(-1);
-  //0 asc (oldest->newest), 1 desc (newest->oldest)
+  const [active, setActive] = useState(null);
   const [sort, setSort] = useState(1);
-  const [record, setRecord] = useState([]); //array of JSONs of projects, each with entries array
+  const [theme, setTheme] = useState('dark');
+  const [record, setRecord] = useState([]);
   const [masterRecord, setMasterRecord] = useState({projects:[]});
-  
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [editingEntry, setEditingEntry] = useState(null);
+
   const fetchMasterRecord = async ()=>{
     try {
       const base = import.meta.env.BASE_URL ?? '/';
@@ -24,163 +29,120 @@ function App() {
     }
   }
 
-
-  const fetchRecords = async ()=>{
-
-    try {
-      if (!masterRecord?.projects?.length) {
-        setRecord([]);
-        return;
-      }
-
-      const base = import.meta.env.BASE_URL ?? '/';
-      const responses = await Promise.all(
-        masterRecord.projects.map(p => fetch(base + 'projects/' + p.path))
-      );
-
-      // check for any non-ok responses first
-      const bad = responses.find(r => !r.ok);
-      if (bad) {
-        throw new Error(`HTTP error fetching ${bad.url} status: ${bad.status}`);
-      }
-
-      // parse each response safely, attach project metadata (including accent_rgb) so entries can carry per-project accent
-      const parsed = [];
-      for (let idx = 0; idx < responses.length; idx++) {
-        const r = responses[idx];
-        const url = r.url;
-        const text = await r.text();
-        if (!text) {
-          console.warn(`Empty response body from ${url}`);
-          // push an empty project object but include projectMeta so consumers know which project it was
-          parsed.push({ entries: [], projectMeta: {
-            index: idx,
-            name: masterRecord.projects[idx]?.name,
-            accent_rgb: masterRecord.projects[idx]?.accent_rgb
-          }});
-          continue;
-        }
-        try {
-          const json = JSON.parse(text);
-          // attach project metadata (index, name, accent_rgb) from masterRecord
-          json.projectMeta = {
-            index: idx,
-            name: masterRecord.projects[idx]?.name,
-            accent_rgb: masterRecord.projects[idx]?.accent_rgb
-          };
-          parsed.push(json);
-        } catch (err) {
-          throw new Error(`Invalid JSON from ${url}: ${err.message}`);
-        }
-      }
-
-      setRecord(parsed);
-    } catch (error) {
-      console.error("Error fetching records:", error);
-      setRecord([]);
-    }
-  }
-
   useEffect(()=>{
     fetchMasterRecord();
   },[]);
 
   useEffect(()=>{
-    fetchRecords();
-  },[masterRecord]);
-  
-  
-  return (
-    <>
-      <div>
-        <NavBar />
-        <div className="project-list">
-          {masterRecord.projects.map((p, i)=>{
-            return( <div key={i} className={"project "+(active===i?"active":"")} onClick={()=>active === i ? setActive(-1) : setActive(i)}>
-              <img src={p.image} alt="" />
-              <h2>{p.name}</h2>
-            </div>
-            )
-          })}
-        </div>
-        <div className="record">
-          {record.length > 0 && <Display sort={sort} record={record.filter((n, i)=>{
-            return(active === -1 || active === i);
-          })} />}
-        </div>
-      </div>
-    </>
-  )
-}
-
-function Display({record,sort}){
-  // build a flat list of entries that carry their project's metadata so each entry can be styled per-project
-  const entries = record.reduce((acc, curr) => {
-    const meta = curr.projectMeta || {};
-    if (Array.isArray(curr.entries)) {
-      curr.entries.forEach(e => acc.push({...e, projectMeta: meta}));
-    }
-    return acc;
-  }, []);
-
-  return(
-    <div className="display">
-      {entries.sort((a,b)=>{
-        switch(sort){
-          case 0:{
-            return a.date-b.date;
-          }
-          case 1:{
-            return b.date-a.date;
-          }
-          default: return 0;
+    const loadRecords = async ()=>{
+      try {
+        if (!masterRecord?.projects?.length) {
+          setRecord([]);
+          return;
         }
-      }).map((n, i)=>{
-        return <Entry key={`E${i}`} i={i} entry={n}/>
-      })}
-    </div>
-  )
-}
 
-function Entry({entry, i}){
+        const base = import.meta.env.BASE_URL ?? '/';
+        const responses = await Promise.all(
+          masterRecord.projects.map(p => fetch(base + 'projects/' + p.path))
+        );
 
-  const base = import.meta.env.BASE_URL ?? '/';
-  const imageUrl = entry.image ? base + entry.image : '';
+        const bad = responses.find(r => !r.ok);
+        if (bad) {
+          throw new Error(`HTTP error fetching ${bad.url} status: ${bad.status}`);
+        }
 
-  // if this entry has project-level accent, expose it as CSS variables on the entry element so children can use them
-  const projectAccent = entry.projectMeta?.accent_rgb;
-  const style = (projectAccent && projectAccent.length === 3) ? {
-    '--accent-rgb': projectAccent.join(','),
-    '--accent-color': `rgb(${projectAccent.join(',')})`
-  } : {};
+        const parsed = [];
+        for (let idx = 0; idx < responses.length; idx++) {
+          const r = responses[idx];
+          const url = r.url;
+          const text = await r.text();
+          if (!text) {
+            console.warn(`Empty response body from ${url}`);
+            parsed.push({ entries: [], projectMeta: {
+              id: masterRecord.projects[idx]?.id,
+              name: masterRecord.projects[idx]?.name,
+              accent_rgb: masterRecord.projects[idx]?.accent_rgb
+            }});
+            continue;
+          }
+          try {
+            const json = JSON.parse(text);
+            json.projectMeta = {
+              id: masterRecord.projects[idx]?.id,
+              name: masterRecord.projects[idx]?.name,
+              accent_rgb: masterRecord.projects[idx]?.accent_rgb
+            };
+            parsed.push(json);
+          } catch (err) {
+            throw new Error(`Invalid JSON from ${url}: ${err.message}`);
+          }
+        }
 
-  return(
-    <div className={`entry ${i%2 ===1? "left" : "right"}`} style={style}>
-      <div className="side-bar"></div>
-      <div className="img-wrapper">
-        {imageUrl? <img src={imageUrl} alt={entry.title} /> : <div className="placeholder"></div>}
+        setRecord(parsed);
+      } catch (error) {
+        console.error("Error fetching records:", error);
+        setRecord([]);
+      }
+    };
+    loadRecords();
+  },[masterRecord]);
+
+  useEffect(()=>{
+    document.documentElement.setAttribute('data-theme', theme);
+  },[theme]);
+
+  const handleSaveEntry = (data) => {
+    console.log('Entry saved (API not yet implemented):', data);
+    setEditingEntry(null);
+  };
+
+  const filteredRecord = record.filter((n) => {
+    return (active === null || active === n.projectMeta?.id);
+  });
+
+  return (
+    <div className="app-container">
+      <CategorySidebar isAdmin={isAdmin} onToggleAdmin={(v) => setIsAdmin(v)} />
+      <div className="main-content">
+        <NavBar theme={theme} onToggleTheme={()=>setTheme(t => t === 'dark' ? 'light' : 'dark')} />
+        <div className="content-area">
+          {isAdmin && (
+            <EntryForm
+              key={editingEntry ? editingEntry.title + editingEntry.date : 'new'}
+              projects={masterRecord.projects}
+              entry={editingEntry}
+              onSave={handleSaveEntry}
+              onCancel={() => setEditingEntry(null)}
+            />
+          )}
+          <div className="project-list">
+            {masterRecord.projects.map((p)=>{
+              const accentStyle = p.accent_rgb ? { '--project-accent-rgb': p.accent_rgb.join(',') } : {};
+              return( <div key={p.id} className={"project "+(active===p.id?"active":"")} style={accentStyle} onClick={()=>active === p.id ? setActive(null) : setActive(p.id)}>
+                <h2>{p.name}</h2>
+              </div>
+              )
+            })}
+          </div>
+          <div className="controls">
+            <button className="sort-btn" onClick={()=>setSort(s => s === 1 ? 0 : 1)}>
+              {sort === 1 ? 'Newest First' : 'Oldest First'}
+            </button>
+          </div>
+          <div className="display">
+            {record.length > 0 && (
+              <Display
+                sort={sort}
+                record={filteredRecord}
+                isAdmin={isAdmin}
+                onEditEntry={setEditingEntry}
+              />
+            )}
+          </div>
+        </div>
       </div>
-      <div className="fade">{/* and buffer and fallback color */}</div>
-      <div className="entry-meat">
-        <h2>{entry.title}</h2>
-        <p>{entry.description}</p>
-      </div>
     </div>
   )
 }
-function NavBar(){
-  return(
-    <div className="navBar">
-      <div className="home" onClick={() => window.location.href = "/"}>Home</div>
-      <div className="contact-me" onClick={() =>{
-        window.location.href = `mailto:johnathan.p.terry@outlook.com?subject=Contact%20about%20Terry%20HQ&body=I'm reaching out to you about`;
-      }}>Get in touch</div>
-    </div>
-  )
-}
-
 
 export default App
-
-
-//TODO Allow De-selection
