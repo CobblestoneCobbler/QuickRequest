@@ -29,7 +29,7 @@ function CategorySidebar({ isAdmin, onToggleAdmin }) {
       setShowPasscode(false)
       setPasscode('')
       setError('')
-      onToggleAdmin(true)
+      onToggleAdmin(crypto.randomUUID())
     } else {
       setError('invalid')
       setPasscode('')
@@ -40,7 +40,7 @@ function CategorySidebar({ isAdmin, onToggleAdmin }) {
     setShowPasscode(false)
     setPasscode('')
     setError('')
-    onToggleAdmin(false)
+    onToggleAdmin(null)
   }
 
   const handleKeyDown = (e) => {

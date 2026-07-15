@@ -8,10 +8,11 @@ import EntryForm from './components/EntryForm'
 function App() {
   const [active, setActive] = useState(null);
   const [sort, setSort] = useState(1);
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
   const [record, setRecord] = useState([]);
   const [masterRecord, setMasterRecord] = useState({projects:[]});
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [authKey, setAuthKey] = useState(() => localStorage.getItem('authKey'));
+  const [isAdmin, setIsAdmin] = useState(() => !!localStorage.getItem('authKey'));
   const [editingEntry, setEditingEntry] = useState(null);
 
   const fetchMasterRecord = async ()=>{
@@ -89,10 +90,24 @@ function App() {
 
   useEffect(()=>{
     document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
   },[theme]);
+
+  const handleToggleAdmin = (key) => {
+    if (key) {
+      localStorage.setItem('authKey', key);
+      setAuthKey(key);
+      setIsAdmin(true);
+    } else {
+      localStorage.removeItem('authKey');
+      setAuthKey(null);
+      setIsAdmin(false);
+    }
+  };
 
   const handleSaveEntry = (data) => {
     console.log('Entry saved (API not yet implemented):', data);
+    // POST with Authorization: Bearer ${authKey}
     setEditingEntry(null);
   };
 
@@ -102,7 +117,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <CategorySidebar isAdmin={isAdmin} onToggleAdmin={(v) => setIsAdmin(v)} />
+      <CategorySidebar isAdmin={isAdmin} onToggleAdmin={handleToggleAdmin} />
       <div className="main-content">
         <NavBar theme={theme} onToggleTheme={()=>setTheme(t => t === 'dark' ? 'light' : 'dark')} />
         <div className="content-area">
